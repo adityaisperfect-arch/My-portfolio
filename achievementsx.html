@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aditya Abhinav — Achievements</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #39ff14;
+      --green-dim: rgba(57,255,20,0.12);
+      --green-glow: rgba(57,255,20,0.5);
+      --bg: #050805;
+      --surface: #080e08;
+      --line: #0f1a0f;
+      --text: #e8ece8;
+      --muted: #4a5c4a;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'Syne', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── grain ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      background-size: 200px;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ── grid ── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(57,255,20,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(57,255,20,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── cursor ── */
+    #cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--green);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease;
+      box-shadow: 0 0 8px var(--green-glow);
+    }
+
+    /* ── nav ── */
+    nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2vw 3vw;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--green);
+      letter-spacing: 4px;
+      text-shadow: 0 0 20px var(--green-glow);
+      text-decoration: none;
+    }
+
+    .nav-back {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid rgba(57,255,20,0.3);
+      padding: 8px 20px;
+      border-radius: 4px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-back::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--green);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .nav-back:hover { color: #000; border-color: var(--green); }
+    .nav-back:hover::after { transform: scaleX(1); }
+    .nav-back span { position: relative; z-index: 1; }
+
+    /* ── header ── */
+    header {
+      position: relative;
+      z-index: 1;
+      padding: 80px 5vw 60px;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    header::after {
+      content: 'ACHIEVEMENTS';
+      position: absolute;
+      right: -20px; top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(60px, 12vw, 180px);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(57,255,20,0.06);
+      letter-spacing: 4px;
+      pointer-events: none;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0.7;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 8vw, 110px);
+      line-height: 0.95;
+      letter-spacing: 2px;
+      color: var(--text);
+      animation: fadeUp 0.9s 0.1s ease both;
+    }
+
+    header h1 em {
+      font-style: normal;
+      color: var(--green);
+      text-shadow: 0 0 40px var(--green-glow);
+    }
+
+    .subtitle {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      max-width: 460px;
+      line-height: 1.9;
+      animation: fadeUp 1s 0.2s ease both;
+    }
+
+    /* ── main ── */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 64px 40px 140px;
+    }
+
+    /* ── filter bar ── */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+      animation: fadeUp 1s 0.3s ease both;
+    }
+
+    .filter-btn {
+      background: none;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      cursor: none;
+      border-radius: 3px;
+      transition: all 0.25s;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      border-color: var(--green);
+      color: var(--green);
+      background: rgba(57,255,20,0.05);
+      box-shadow: 0 0 12px rgba(57,255,20,0.1);
+    }
+
+    /* ── timeline ── */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--green) 0%, rgba(57,255,20,0.2) 50%, transparent 100%);
+    }
+
+    /* ── year group ── */
+    .year-group { margin-bottom: 56px; }
+
+    .year-label {
+      position: relative;
+      font-family: var(--font-display);
+      font-size: 13px;
+      letter-spacing: 5px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      padding-left: 24px;
+    }
+
+    .year-label::before {
+      content: '';
+      position: absolute;
+      left: -37px; top: 50%;
+      transform: translateY(-50%);
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px rgba(57,255,20,0.4), 0 0 20px var(--green-glow);
+    }
+
+    /* ── card ── */
+    .card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 28px 32px;
+      margin-bottom: 14px;
+      margin-left: 16px;
+      border-radius: 4px;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      cursor: none;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s ease forwards;
+      animation-delay: var(--delay, 0s);
+    }
+
+    .card:hover {
+      border-color: rgba(57,255,20,0.4);
+      transform: translateX(6px);
+      box-shadow: 0 0 30px rgba(57,255,20,0.06), -4px 0 0 var(--green);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      left: -25px; top: 28px;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      border: 1px solid rgba(57,255,20,0.3);
+      background: var(--bg);
+    }
+
+    /* featured card */
+    .card.featured {
+      border-color: rgba(57,255,20,0.25);
+      background: linear-gradient(135deg, #080e08 0%, #0a140a 100%);
+      box-shadow: 0 0 40px rgba(57,255,20,0.05);
+    }
+
+    .card.featured::after {
+      content: '★ FEATURED';
+      position: absolute;
+      top: 16px; right: 16px;
+      font-size: 8px;
+      letter-spacing: 3px;
+      color: var(--green);
+      opacity: 0.5;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 1px;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .card.featured .card-title { color: var(--green); }
+
+    .card-date {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      white-space: nowrap;
+      padding-top: 4px;
+    }
+
+    .card-body {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 2;
+      margin-bottom: 16px;
+      font-family: var(--font-mono);
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .tag {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      background: rgba(57,255,20,0.03);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      border-radius: 2px;
+    }
+
+    .tag.green  { border-color: rgba(57,255,20,0.3); color: var(--green); }
+    .tag.dim    { border-color: rgba(57,255,20,0.15); color: rgba(57,255,20,0.6); }
+
+    .medal { font-size: 22px; line-height: 1; }
+
+    /* ── footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 40px;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 3px;
+      border-top: 1px solid var(--line);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 60px 24px 40px; }
+      main { padding: 48px 20px 80px; }
+      .timeline { padding-left: 20px; }
+      .card { padding: 20px; margin-left: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-logo">AA</a>
+  <a href="index.html" class="nav-back"><span>← BACK TO PORTFOLIO</span></a>
+</nav>
+
+<!-- ── HEADER ── -->
+<header>
+  <p class="eyebrow">// Portfolio · Timeline</p>
+  <h1>MY<br><em>ACHIEVEMENTS</em></h1>
+  <p class="subtitle">A log of milestones, wins, and moments that shaped the journey — from first steps to finest hours.</p>
+</header>
+
+<main>
+
+  <!-- filter bar -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterCards('all', this)">ALL</button>
+    <button class="filter-btn" onclick="filterCards('award', this)">AWARDS</button>
+    <button class="filter-btn" onclick="filterCards('academic', this)">ACADEMIC</button>
+    <button class="filter-btn" onclick="filterCards('career', this)">CAREER</button>
+    <button class="filter-btn" onclick="filterCards('project', this)">PROJECTS</button>
+  </div>
+
+  <div class="timeline" id="timeline">
+
+    <!-- ── 2024 ── -->
+    <div class="year-group" data-year="2024">
+      <div class="year-label">2026</div>
+
+      <div class="card featured" data-category="award" style="--delay:0.1s">
+        <div class="card-header">
+          <div class="card-title">Participated in pune's 1st Agentic AI Hackathon </div>
+          <div class="card-date">NOV 2024</div>
+        </div>
+        <div class="card-body">Received a participating certificate and advices from the judges, learn a lot about agentic ai and how it works </div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag green">Award</span>
+            <span class="tag dim">AI / ML</span>
+          </div>
+          <div class="medal">🏆</div>
+        </div>
+      </div>
+
+      <div class="card" data-category="career" style="--delay:0.2s">
+        <div class="card-header">
+          <div class="card-title">PARTICPATED IN INTER COLLGE Hackathon</div>
+          <div class="card-date">AUG 2024</div>
+        </div>
+        <div class="card-body">MADE OUR FIRST DEPLOYABLE STUDY TRACKING WEBSITE WITH CHALLENGES AND BATTLE MODES,DIDNT WIN BUT GET A LOT APPLAUSE FROM JUDGES AND AUDIENCE</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag green">Career</span>
+            <span class="tag dim">Leadership</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-category="project" style="--delay:0.3s">
+        <div class="card-header">
+          <div class="card-title">Launched Open Source Library WEBSITE</div>
+          <div class="card-date">MAR 2024</div>
+        </div>
+        <div class="card-body">MADE A WEBSITE THAT CAN FIND BOOKS AND ALSO MAKE THEM RESERVE FOR LATER USE OF  STUDENTS</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag dim">Project</span>
+            <span class="tag dim">Open Source</span>
+          </div>
+          <div class="medal">⭐</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 2023 ── -->
+    <div class="year-group" data-year="2023">
+      <div class="year-label">2023</div>
+
+      <div class="card" data-category="academic" style="--delay:0.1s">
+        <div class="card-header">
+          <div class="card-title">DONATED BLOOD 2 TIMES </div>
+          <div class="card-date">OCT 2023</div>
+        </div>
+        <div class="card-body">DONATED A BLOOD TO GOVERNMENT HOSPITALS 2 TIMES TO HELP THE NEEDY</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag green">Academic</span>
+            <span class="tag dim">Research</span>
+          </div>
+          <div class="medal">📄</div>
+        </div>
+      </div>
+
+      <div class="card" data-category="award" style="--delay:0.2s">
+        <div class="card-header">
+          <div class="card-title">GOT GREAT MARKS IN 10TH AND 12TH</div>
+          <div class="card-date">JUL 2023</div>
+        </div>
+        <div class="card-body"></div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag green">Award</span>
+            <span class="tag dim">Hackathon</span>
+          </div>
+          <div class="medal">🥇</div>
+        </div>
+      </div>
+
+      <div class="card" data-category="career" style="--delay:0.3s">
+        <div class="card-header">
+          <div class="card-title">GOT GOLD MEDAL IN ESSAY WRITING COMPETITION</div>
+          <div class="card-date">FEB 2023</div>
+        </div>
+        <div class="card-body">GOT GOLD MEDAL IN BOTH HINDI AND ENGILSH ESSAY WRITING COMPETITION</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag green">Career</span>
+            <span class="tag dim">Public Speaking</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+  </div><!-- /timeline -->
+</main>
+<script>
+  // cursor
+  const cursor = document.getElementById('cursor');
+  window.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button, .card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
+      cursor.style.opacity = '0.6';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      cursor.style.opacity = '1';
+    });
+  });
+
+  // filter
+  function filterCards(category, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.card').forEach(card => {
+      card.style.display = (category === 'all' || card.dataset.category === category) ? '' : 'none';
+    });
+    document.querySelectorAll('.year-group').forEach(group => {
+      const visible = [...group.querySelectorAll('.card')].some(c => c.style.display !== 'none');
+      group.style.display = visible ? '' : 'none';
+    });
+  }
+
+  // scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animationPlayState = 'running';
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.card').forEach(card => {
+    card.style.animationPlayState = 'paused';
+    observer.observe(card);
+  });
+</script>
+</body>
+</html>
