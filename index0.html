@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aditya Abhinav — Portfolio</title>
+  <link rel="stylesheet" href="styleb.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <div id="cursor"></div>
+  <div id="cursor-blur"></div>
+
+  <!-- ══ PAGE 1 — HERO ══ -->
+  <div id="page1">
+    <nav>
+      <div id="nav-logo">AA</div>
+      <div id="nav2">
+        <h4><a href="#" id="aboutBtn">ABOUT</a></h4>
+        <h4><a href="#" id="projectBtn">PROJECTS</a></h4>
+        <h4><a href="#" id="contactBtn">CONTACT</a></h4>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <span class="hero-eyebrow">— FRONTEND DEVELOPER</span>
+      <h1 class="hero-text">
+        <span class="line">HI,</span>
+        <span class="line">I AM</span>
+        <span class="line accent-line">ADITYA ABHINAV</span>
+      </h1>
+      <div class="hero-bottom">
+        <span class="scroll-hint">SCROLL ↓</span>
+        <span class="hero-tag">IT BRANCH · PUNE</span>
+      </div>
+    </div>
+
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- ══ PAGE 2 — ABOUT ══ -->
+  <div id="page2">
+    <div id="about-left">
+      <p class="section-label">// 01 — ABOUT</p>
+      <h1>ABOUT<br><em>ME</em></h1>
+      <p class="about-desc">
+        I am <strong>Aditya Abhinav</strong>, from the Information Technology
+        branch. I enjoy crafting immersive, detail-rich frontend experiences
+        that live at the intersection of design and code.
+      </p>
+      <div class="about-tags">
+        <span>HTML</span><span>CSS</span><span>JavaScript</span><span>GSAP</span>
+      </div>
+    </div>
+
+    <div id="gallery">
+      <div class="img-frame">
+        <img id="gallery-img" src="gallery/img1.jpeg" alt="gallery" />
+        <div class="img-counter"><span id="img-index">01</span> / 10</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PAGE 3 — RESUME / PROJECTS ══ -->
+  <div id="page3">
+    <video autoplay loop muted playsinline class="bv">
+      <source src="aaa.mp4" type="video/mp4" />
+    </video>
+
+    <div class="p3-marquee-wrap">
+      <div class="p3-marquee-track">
+        <span>MY_RESUME &nbsp;✦&nbsp; MY_RESUME &nbsp;✦&nbsp; MY_RESUME &nbsp;✦&nbsp; MY_RESUME &nbsp;✦&nbsp; MY_RESUME &nbsp;✦&nbsp;</span>
+        <span>MY_RESUME &nbsp;✦&nbsp; MY_RESUME &nbsp;✦&nbsp; MY_RESUME &nbsp;✦&nbsp; MY_RESUME &nbsp;✦&nbsp; MY_RESUME &nbsp;✦&nbsp;</span>
+      </div>
+    </div>
+
+    <div class="p3-box">
+      <p class="section-label" style="color:#39ff14; margin-bottom:20px;">// 02 — RESUME & WORK</p>
+      <a href="re.pdf" target="_blank" class="p3-btn">
+        <span class="btn-icon">↗</span> OPEN RESUME
+      </a>
+      <a href="f3.html" class="p3-btn">
+        <span class="btn-icon">◈</span> PROJECTS
+      </a>
+      <a href="achievementsx.html" class="p3-btn">
+        <span class="btn-icon">★</span> ACHIEVEMENTS
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ PAGE 4 — CONTACT ══ -->
+  <div id="page4">
+    <video autoplay loop muted playsinline class="bv">
+      <source src="neon video.mp4" type="video/mp4" />
+    </video>
+
+    <div class="contact-header">
+      <p class="section-label">// 03 — CONTACT</p>
+      <h1>LET'S<br><em>TALK</em></h1>
+    </div>
+
+    <div id="contact-box">
+      <a href="https://contacts.google.com/person/c4007656238406644872" class="contact-card" target="_blank">
+        <span class="contact-icon">📞</span>
+        <span class="contact-label">PHONE</span>
+        <span class="contact-arrow">↗</span>
+      </a>
+      <a href="https://mail.google.com/mail/u/0/?hl=en#inbox" class="contact-card" target="_blank">
+        <span class="contact-icon">✉</span>
+        <span class="contact-label">EMAIL</span>
+        <span class="contact-arrow">↗</span>
+      </a>
+      <a href="https://www.linkedin.com/in/aditya-abhinav-94bb41383/" class="contact-card" target="_blank">
+        <span class="contact-icon">in</span>
+        <span class="contact-label">LINKEDIN</span>
+        <span class="contact-arrow">↗</span>
+      </a>
+      <a href="https://discord.com/channels/1376224556812992652/1376224557786075289" class="contact-card" target="_blank">
+        <span class="contact-icon">◎</span>
+        <span class="contact-label">DISCORD</span>
+        <span class="contact-arrow">↗</span>
+      </a>
+    </div>
+
+    <div class="contact-footer">© 2025 ADITYA ABHINAV — BUILT WITH INTENT</div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollToPlugin.min.js"></script>
+  <script src="scriptb.js"></script>
+</body>
+</html>
