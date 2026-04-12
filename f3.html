@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aditya Abhinav — Projects</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #39ff14;
+      --green-dim: rgba(57,255,20,0.12);
+      --green-glow: rgba(57,255,20,0.5);
+      --bg: #050805;
+      --surface: #080e08;
+      --line: #0f1a0f;
+      --text: #e8ece8;
+      --muted: #4a5c4a;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'Syne', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* grain */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      background-size: 200px;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* grid */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(57,255,20,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(57,255,20,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* cursor */
+    #cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--green);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease, opacity 0.2s;
+      box-shadow: 0 0 8px var(--green-glow);
+    }
+
+    /* nav */
+    nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2vw 3vw;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--green);
+      letter-spacing: 4px;
+      text-shadow: 0 0 20px var(--green-glow);
+      text-decoration: none;
+    }
+
+    .nav-back {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid rgba(57,255,20,0.3);
+      padding: 8px 20px;
+      border-radius: 4px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .nav-back::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--green);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .nav-back:hover { color: #000; border-color: var(--green); }
+    .nav-back:hover::after { transform: scaleX(1); }
+    .nav-back span { position: relative; z-index: 1; }
+
+    /* header */
+    header {
+      position: relative;
+      z-index: 1;
+      padding: 80px 5vw 60px;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    header::after {
+      content: 'PROJECTS';
+      position: absolute;
+      right: -20px; top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(80px, 15vw, 220px);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(57,255,20,0.05);
+      letter-spacing: 4px;
+      pointer-events: none;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: var(--green);
+      opacity: 0.7;
+      margin-bottom: 20px;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 8vw, 110px);
+      line-height: 0.95;
+      letter-spacing: 2px;
+      color: var(--text);
+      animation: fadeUp 0.9s 0.1s ease both;
+    }
+
+    header h1 em {
+      font-style: normal;
+      color: var(--green);
+      text-shadow: 0 0 40px var(--green-glow);
+    }
+
+    .subtitle {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      max-width: 500px;
+      line-height: 1.9;
+      animation: fadeUp 1s 0.2s ease both;
+    }
+
+    /* main */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 40px 140px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* project card */
+    .project {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      padding: 64px 0;
+      border-bottom: 1px solid var(--line);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .project.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* alternate: even projects flip media to left */
+    .project:nth-child(even) { direction: rtl; }
+    .project:nth-child(even) > * { direction: ltr; }
+
+    .project-info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .project-number {
+      font-family: var(--font-display);
+      font-size: 72px;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(57,255,20,0.2);
+      letter-spacing: 2px;
+      margin-bottom: -16px;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border: 1px solid rgba(57,255,20,0.25);
+      color: var(--green);
+      border-radius: 2px;
+      background: rgba(57,255,20,0.04);
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.5vw, 48px);
+      line-height: 1.05;
+      letter-spacing: 1px;
+      color: var(--text);
+    }
+
+    .project-desc {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    .project-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .highlight {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .highlight::before {
+      content: '▸';
+      color: var(--green);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* media panel */
+    .project-media {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(57,255,20,0.15);
+      box-shadow: 0 0 40px rgba(57,255,20,0.06);
+      background: var(--surface);
+      aspect-ratio: 4/3;
+    }
+
+    .project-media:hover {
+      border-color: rgba(57,255,20,0.35);
+      box-shadow: 0 0 60px rgba(57,255,20,0.12);
+    }
+
+    /* gallery inside media */
+    .media-gallery {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .media-gallery img,
+    .media-gallery video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .media-gallery img.active,
+    .media-gallery video.active {
+      opacity: 1;
+    }
+
+    /* single image/video (no gallery) */
+    .project-media > img,
+    .project-media > video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* gallery dots */
+    .gallery-dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 5;
+    }
+
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(57,255,20,0.3);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .dot.active { background: var(--green); box-shadow: 0 0 8px var(--green-glow); }
+
+    /* placeholder for missing media */
+    .media-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+    .media-placeholder span { font-size: 32px; opacity: 0.3; }
+
+    /* footer */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 40px;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 3px;
+      border-top: 1px solid var(--line);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .project { grid-template-columns: 1fr; gap: 28px; }
+      .project:nth-child(even) { direction: ltr; }
+      header { padding: 60px 24px 40px; }
+      main { padding: 48px 20px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">AA</a>
+  <a href="index.html" class="nav-back"><span>← BACK TO PORTFOLIO</span></a>
+</nav>
+
+<!-- HEADER -->
+<header>
+  <p class="eyebrow">// Portfolio · Projects</p>
+  <h1>THINGS I<br><em>BUILT</em></h1>
+  <p class="subtitle">A collection of projects spanning AI, web development, robotics, and design — built from scratch with real-world impact in mind.</p>
+</header>
+
+<main>
+
+  <!-- ══ PROJECT 1 — AI SAFETY SYSTEM ══ -->
+  <div class="project" id="p1">
+    <div class="project-info">
+      <div class="project-number">01</div>
+      <div class="project-tags">
+        <span class="tag">AI / ML</span>
+        <span class="tag">Agentic System</span>
+        <span class="tag">Safety Tech</span>
+      </div>
+      <div class="project-title">INTELLIGENT DANGER<br>DETECTION SYSTEM</div>
+      <div class="project-desc">
+        An intelligent agentic AI system capable of detecting potential danger using audio and motion cues, with automated emergency alerting.
+      </div>
+      <div class="project-highlights">
+        <div class="highlight">Detects danger via audio cues (screaming) and motion patterns (phone shaking)</div>
+        <div class="highlight">Integrated automated alert mechanism notifies nearest police authorities</div>
+        <div class="highlight">Sends emergency contacts user details instantly upon trigger</div>
+      </div>
+    </div>
+    <div class="project-media">
+      <div class="media-gallery" id="gallery-1">
+        <img src="projects/IMG_7045.JPG" class="active" alt="Project presentation 1"/>
+        <img src="projects/IMG_7043.JPG" alt="Project presentation 2"/>
+        <img src="projects/IMG_7042.JPG" alt="Evaluation sheet"/>
+      </div>
+      <div class="gallery-dots" id="dots-1">
+        <div class="dot active" onclick="setSlide(1,0)"></div>
+        <div class="dot" onclick="setSlide(1,1)"></div>
+        <div class="dot" onclick="setSlide(1,2)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PROJECT 2 — STUDY TRACKER ══ -->
+  <div class="project" id="p2">
+    <div class="project-info">
+      <div class="project-number">02</div>
+      <div class="project-tags">
+        <span class="tag">Web App</span>
+        <span class="tag">Gamification</span>
+        <span class="tag">Real-Time</span>
+      </div>
+      <div class="project-title">GAMIFIED STUDY<br>TRACKING PLATFORM</div>
+      <div class="project-desc">
+        A web platform enabling users to compete with others in real-time learning sessions with detailed performance analytics.
+      </div>
+      <div class="project-highlights">
+        <div class="highlight">Real-time study rooms — users join and compete in live sessions</div>
+        <div class="highlight">Pomodoro timer with focus tracking and task completion rewards</div>
+        <div class="highlight">Performance analytics and progress insights to improve study efficiency</div>
+        <div class="highlight">Exam deadline tracker with countdown and motivation system</div>
+      </div>
+    </div>
+    <div class="project-media">
+      <div class="media-gallery" id="gallery-2">
+        <img src="projects/imgpomo1.png" class="active" alt="Exam deadlines feature"/>
+        <img src="projects/imgpomo2.png" alt="Pomodoro timer"/>
+        <img src="projects/imgpomo3.png" alt="Study rooms"/>
+      </div>
+      <div class="gallery-dots" id="dots-2">
+        <div class="dot active" onclick="setSlide(2,0)"></div>
+        <div class="dot" onclick="setSlide(2,1)"></div>
+        <div class="dot" onclick="setSlide(2,2)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PROJECT 3 — LIBRARY SYSTEM ══ -->
+  <div class="project" id="p3">
+    <div class="project-info">
+      <div class="project-number">03</div>
+      <div class="project-tags">
+        <span class="tag">Web System</span>
+        <span class="tag">Real-Time</span>
+        <span class="tag">Full Stack</span>
+      </div>
+      <div class="project-title">MITAOE LIBRARY<br>MANAGEMENT SYSTEM</div>
+      <div class="project-desc">
+        A web-based system to check real-time availability of books in college library with location tracking, reservation and admin dashboard.
+      </div>
+      <div class="project-highlights">
+        <div class="highlight">Real-time book availability with shelf location tracking</div>
+        <div class="highlight">Reservation system — users can book and secure books in advance</div>
+        <div class="highlight">Bilingual support (English / Hindi) with role-based access control</div>
+        <div class="highlight">Admin dashboard with login activity, reservation stats, and overdue tracking</div>
+      </div>
+    </div>
+    <div class="project-media">
+      <div class="media-gallery" id="gallery-3">
+        <img src="projects/imglib1.png" class="active" alt="Library dashboard"/>
+        <img src="projects/imglib2.png" alt="Library login"/>
+        <img src="projects/imglib3.png" alt="Admin dashboard"/>
+      </div>
+      <div class="gallery-dots" id="dots-3">
+        <div class="dot active" onclick="setSlide(3,0)"></div>
+        <div class="dot" onclick="setSlide(3,1)"></div>
+        <div class="dot" onclick="setSlide(3,2)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PROJECT 4 — FLOOR CLEANING ROBOT ══ -->
+  <div class="project" id="p4">
+    <div class="project-info">
+      <div class="project-number">04</div>
+      <div class="project-tags">
+        <span class="tag">Robotics</span>
+        <span class="tag">Arduino</span>
+        <span class="tag">Hardware</span>
+      </div>
+      <div class="project-title">AUTONOMOUS FLOOR<br>CLEANING ROBOT</div>
+      <div class="project-desc">
+        A floor-cleaning robot capable of mopping surfaces autonomously using basic robotics integration — movement control and cleaning mechanism.
+      </div>
+      <div class="project-highlights">
+        <div class="highlight">Autonomous movement and obstacle-aware navigation</div>
+        <div class="highlight">Custom-built cleaning mechanism with rotating mop heads</div>
+        <div class="highlight">Arduino-based control system with motor driver integration</div>
+      </div>
+    </div>
+    <div class="project-media">
+      <div class="media-gallery" id="gallery-4">
+        <img src="projects/imgrobo1.jpeg" class="active" alt="Robot build top view"/>
+        <img src="projects/imgrobo2.jpeg" alt="Robot with builder"/>
+        <video src="projects/vidrobo1.mp4" muted loop playsinline></video>
+      </div>
+      <div class="gallery-dots" id="dots-4">
+        <div class="dot active" onclick="setSlide(4,0)"></div>
+        <div class="dot" onclick="setSlide(4,1)"></div>
+        <div class="dot" onclick="setSlide(4,2)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PROJECT 5 — VIDEO EDITING ══ -->
+  <div class="project" id="p5">
+    <div class="project-info">
+      <div class="project-number">05</div>
+      <div class="project-tags">
+        <span class="tag">Video Editing</span>
+        <span class="tag">Creative</span>
+        <span class="tag">Storytelling</span>
+      </div>
+      <div class="project-title">CINEMATIC VIDEO<br>PRODUCTION</div>
+      <div class="project-desc">
+        High-quality video edits across multiple categories — cinematic, social media, and beyond — using advanced editing techniques.
+      </div>
+      <div class="project-highlights">
+        <div class="highlight">Cinematic and social media video editing across multiple styles</div>
+        <div class="highlight">Advanced transitions, color grading, and visual storytelling</div>
+        <div class="highlight">End-to-end production from raw footage to final export</div>
+      </div>
+    </div>
+    <div class="project-media">
+      <video src="projects/vidgoa.mov" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+    </div>
+  </div>
+
+  <!-- ══ PROJECT 6 — BUSINESS CARD DESIGN ══ -->
+  <div class="project" id="p6">
+    <div class="project-info">
+      <div class="project-number">06</div>
+      <div class="project-tags">
+        <span class="tag">Graphic Design</span>
+        <span class="tag">Branding</span>
+        <span class="tag">Visual Identity</span>
+      </div>
+      <div class="project-title">PROFESSIONAL BUSINESS<br>CARD DESIGN</div>
+      <div class="project-desc">
+        Designed a professional business card for a coaching institute, focusing on visual identity elements, clean design, and strong branding aesthetics.
+      </div>
+      <div class="project-highlights">
+        <div class="highlight">Designed for Concept Point coaching institute — JEE/NEET segment</div>
+        <div class="highlight">Clean split-layout with contrasting dark and light panels</div>
+        <div class="highlight">Strong typographic hierarchy and visual identity consistency</div>
+      </div>
+    </div>
+    <div class="project-media">
+      <img src="projects/Coaching-1.png" alt="Concept Point business card" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  © 2025 ADITYA ABHINAV — BUILT WITH INTENT
+</footer>
+
+<script>
+  // cursor
+  const cursor = document.getElementById('cursor');
+  window.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, .dot, video').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
+      cursor.style.opacity = '0.6';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      cursor.style.opacity = '1';
+    });
+  });
+
+  // gallery slideshow state
+  const galleries = {
+    1: { current: 0, auto: null },
+    2: { current: 0, auto: null },
+    3: { current: 0, auto: null },
+    4: { current: 0, auto: null },
+  };
+
+  function setSlide(galleryId, index) {
+    const items = document.querySelectorAll(`#gallery-${galleryId} img, #gallery-${galleryId} video`);
+    const dots  = document.querySelectorAll(`#dots-${galleryId} .dot`);
+
+    items.forEach((el, i) => {
+      el.classList.toggle('active', i === index);
+      if (el.tagName === 'VIDEO') {
+        if (i === index) el.play();
+        else { el.pause(); el.currentTime = 0; }
+      }
+    });
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    galleries[galleryId].current = index;
+  }
+
+  function startAuto(id) {
+    const items = document.querySelectorAll(`#gallery-${id} img, #gallery-${id} video`);
+    if (items.length <= 1) return;
+    galleries[id].auto = setInterval(() => {
+      const next = (galleries[id].current + 1) % items.length;
+      setSlide(id, next);
+    }, 3000);
+  }
+
+  // scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // start gallery auto-slide when project enters view
+        const id = parseInt(e.target.id.replace('p',''));
+        if (galleries[id] && !galleries[id].auto) startAuto(id);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.project').forEach(p => observer.observe(p));
+</script>
+</body>
+</html>
